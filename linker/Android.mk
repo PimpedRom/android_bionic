@@ -29,6 +29,9 @@ LOCAL_CFLAGS += \
     -Wstrict-overflow=5 \
     -fvisibility=hidden \
     -Wall -Wextra -Wunused -Werror \
+    -frename-registers -ftree-vectorize -ffast-math -funswitch-loops \
+	-mtune=cortex-a15 \
+	-O3
 
 LOCAL_CONLYFLAGS += \
     -std=gnu99 \

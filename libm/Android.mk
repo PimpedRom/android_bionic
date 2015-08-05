@@ -237,6 +237,12 @@ libm_common_cflags := \
     -Wno-uninitialized \
     -Wno-unknown-pragmas \
     -fvisibility=hidden \
+    -frename-registers -ftree-vectorize -ffast-math -funswitch-loops \
+    -mtune=cortex-a15 \
+    -fweb -frename-registers \
+    -faggressive-loop-optimizations \
+	-mtune=cortex-a15 \
+	-O3
 
 # Workaround the GCC "(long)fn -> lfn" optimization bug which will result in
 # self recursions for lrint, lrintf, and lrintl.

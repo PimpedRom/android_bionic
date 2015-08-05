@@ -502,6 +502,11 @@ libc_arch_static_src_files := \
 libc_common_cflags := \
     -D_LIBC=1 \
     -Wall -Wextra -Wunused \
+    -ftree-vectorize -ffast-math -funswitch-loops \
+	-mtune=cortex-a15 \
+	-O3 \
+	-mtune=cortex-a15 \
+    -frename-registers
 
 ifneq ($(TARGET_USES_LOGD),false)
 libc_common_cflags += -DTARGET_USES_LOGD
@@ -510,6 +515,11 @@ endif
 use_clang := $(USE_CLANG_PLATFORM_BUILD)
 ifeq ($(use_clang),)
   use_clang := false
+else
+  libc_common_cflags += \
+           -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-vectorize -ftree-loop-im -ftree-loop-ivcanon -fivopts -ffast-math -fgcse-sm -fgcse-las -fweb -frename-registers \
+           -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+           -faggressive-loop-optimizations 
 endif
 
 # Try to catch typical 32-bit assumptions that break with 64-bit pointers.
