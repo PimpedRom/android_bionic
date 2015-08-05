@@ -140,6 +140,8 @@ static HashEntry* record_backtrace(uintptr_t* backtrace, size_t numEntries, size
         size |= SIZE_FLAG_ZYGOTE_CHILD;
     }
 
+    // Keep the lock held for as little time as possible to prevent deadlocks.
+    ScopedPthreadMutexLocker locker(&g_hash_table->lock);
     HashEntry* entry = find_entry(g_hash_table, slot, backtrace, numEntries, size);
 
     if (entry != NULL) {
